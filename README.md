@@ -1,5 +1,7 @@
 # Base de datos para aplicaciones
 
+!['Imagen Base de Datos'](./img/imagenbd.jpg)
+
 ---
 
 En este repositorio se encuentran temas y ejercicios de base de datos para aplicaciones, taales como: 
