@@ -113,6 +113,32 @@ exec sp_ventasporcliente @year = 1998
 
 --Ejercicio 1: realizar un store procedure que muestre un reporte de ventas,
 -- por cliente y producto (agrupado), de un rango de fechas
+CREATE PROCEDURE sp_ReporteVentasPorClienteYProducto
+    @FechaInicio DATE,
+    @FechaFin DATE
+AS
+BEGIN
+    SELECT 
+        c.CustomerName AS Cliente,
+        p.ProductName AS Producto,
+        SUM(sd.Quantity) AS CantidadTotal,
+        SUM(sd.TotalPrice) AS TotalVentas
+    FROM 
+        Sales s
+        INNER JOIN SalesDetails sd ON s.SaleID = sd.SaleID
+        INNER JOIN Customers c ON s.CustomerID = c.CustomerID
+        INNER JOIN Products p ON sd.ProductID = p.ProductID
+    WHERE 
+        s.SaleDate BETWEEN @FechaInicio AND @FechaFin
+    GROUP BY 
+        c.CustomerName, p.ProductName
+    ORDER BY 
+        c.CustomerName, p.ProductName;
+END;
+
+
+EXEC sp_ReporteVentasPorClienteYProducto '01-01-1978', '31-12-1978';
+
 
 
 --Ejercicio 2: realizar un store procedure que inserte un cliente nuevo

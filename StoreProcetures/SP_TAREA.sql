@@ -204,28 +204,14 @@ BEGIN
         END
         ELSE
         BEGIN
-            -- Si el catálogo no es válido, lanzar un error
-            RAISERROR('Catalog not recognized', 16, 1);
+           
+            RAISERROR('No conozco el catalogo', 16, 1);
         END
 
-        -- Si la inserción es exitosa, confirmar la transacción
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
-        -- En caso de error, deshacer la transacción
         ROLLBACK TRANSACTION;
-
-        -- Devolver el error
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
 

@@ -116,6 +116,32 @@ from ejerciciojoins.dbo.empleados
 select * from dimempleados
 
 --4.-agregar nuevos datos a la tabla dimempleados por lo menos dos
+INSERT INTO dimempleados (EmpleadoID, Nombre, Apellido, Departamento, FechaContratacion)
+VALUES
+(101, 'Juan', 'Pérez', 'Ventas', '2023-01-15'),
+(102, 'María', 'González', 'Marketing', '2022-11-30');
+
+select * from dimempleados
 
 --5.-actializar la tabla empleados con los nuevos registros, la cual se llenaran en una nueva tabla llamada dim_producto
 
+UPDATE empleados
+SET 
+    Nombre = 'NuevoNombre',
+    Apellido = 'NuevoApellido',
+    Departamento = 'NuevoDepartamento',
+    FechaContratacion = 'NuevaFechaContratacion'
+WHERE EmpleadoID = 'IDEspecifico';
+
+CREATE TABLE dim_producto (
+    ProductoID INT PRIMARY KEY,
+    NombreProducto VARCHAR(255),
+    Categoria VARCHAR(255),
+    Precio DECIMAL(10, 2),
+    FechaIngreso DATE
+);
+
+INSERT INTO dim_producto (ProductoID, NombreProducto, Categoria, Precio, FechaIngreso)
+VALUES
+(1, 'ProductoA', 'CategoríaA', 100.00, '2024-07-01'),
+(2, 'ProductoB', 'CategoríaB', 150.00, '2024-07-02');
